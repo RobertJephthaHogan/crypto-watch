@@ -16,7 +16,7 @@ export const SelectCreator: React.FC<SelectMenuProps> = ({
 
     const menu = data?.map((child: any) => {
         return (
-            <option data-dataObj={child.toString()} value={child._id}>{child.title}</option>
+            <option data-dataObj={child.toString()} value={child}>{child}</option>
         )
     })  || []
 

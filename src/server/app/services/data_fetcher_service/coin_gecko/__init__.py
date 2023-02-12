@@ -193,6 +193,9 @@ class CoinGecko:
 
     # ------{ Search }------- #
 
+    # Get BTC-to-Currency exchange rates
+    async def cg_search(query):
+        return cg.search(query)
 
 
     # ------{ Trending }------- #

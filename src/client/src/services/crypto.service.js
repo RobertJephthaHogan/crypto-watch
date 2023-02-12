@@ -12,18 +12,20 @@ const apiInstance = axios.create({
 })
 
 
-
-export const userService = {
-    createNewUser,
-    loginUser,
-    getUser,
-    updateUser,
+export const cryptoService = {
+    getAllCoinMarketData,
+    getCoinsList,
+    getExchangesList,
+    getExchangeIDs,
+    getGlobalCryptoData,
+    getSupportedCurrencyPairs
 }
 
-function createNewUser(new_user_data) {
+
+function getAllCoinMarketData() {
     return new Promise((resolve, reject) => {
         apiInstance
-            .post(`/user/new`, new_user_data)
+            .get(`/cg/all_coin_market_data/USD`)
             .then((response) => {
                 return resolve(response)
             })
@@ -34,10 +36,11 @@ function createNewUser(new_user_data) {
     })
 }
 
-function loginUser(login_data) {
+
+function getCoinsList() {
     return new Promise((resolve, reject) => {
         apiInstance
-            .post(`/user/login`, login_data)
+            .get(`/cg/coins_list`)
             .then((response) => {
                 return resolve(response)
             })
@@ -48,10 +51,11 @@ function loginUser(login_data) {
     })
 }
 
-function getUser(userID) {
+
+function getExchangesList() {
     return new Promise((resolve, reject) => {
         apiInstance
-            .get(`/user/getUser`, userID)
+            .get(`/cg/get_exchanges_list`)
             .then((response) => {
                 return resolve(response)
             })
@@ -62,10 +66,42 @@ function getUser(userID) {
     })
 }
 
-function updateUser(userID, updatedUserObj) {
+
+function getExchangeIDs() {
     return new Promise((resolve, reject) => {
         apiInstance
-            .put(`/user/${userID}`, updatedUserObj)
+            .get(`/cg/exchanges/exchange_ids`)
+            .then((response) => {
+                return resolve(response)
+            })
+            .catch((error) => {
+                console.error(error)
+                reject(error)
+            })
+    })
+}
+
+
+function getGlobalCryptoData() {
+    return new Promise((resolve, reject) => {
+        apiInstance
+            .get(`/cg/get_global_data`)
+            .then((response) => {
+                return resolve(response)
+            })
+            .catch((error) => {
+                console.error(error)
+                reject(error)
+            })
+    })
+}
+
+
+
+function getSupportedCurrencyPairs() {
+    return new Promise((resolve, reject) => {
+        apiInstance
+            .get(`/cg/get_supported_currency_pairs`)
             .then((response) => {
                 return resolve(response)
             })

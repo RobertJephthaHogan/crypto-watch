@@ -191,12 +191,15 @@ class CryptoController:
 
     # ------{ Search }------- #
 
-
+    # Search coin gecko
+    @router.get("/search/{query}")
+    async def cg_search(query):
+        return await CoinGecko.cg_search(query)
 
     # ------{ Trending }------- #
     
     # Get trending search coins (Top-7) on CoinGecko in the last 24 hours
-    @router.get("/btc_to_fiat_exchange_rates")
+    @router.get("/search/trending")
     async def get_search_trending():
         return await CoinGecko.get_search_trending()
 
@@ -204,13 +207,13 @@ class CryptoController:
     # ------{ Global }------- #
     
     # Get cryptocurrency global data
-    @router.get("/btc_to_fiat_exchange_rates")
+    @router.get("/get_global_data")
     async def get_global_data():
         return await CoinGecko.get_global_data()
 
     
     # Get Top 100 Cryptocurrency Global Eecentralized Finance(defi) data
-    @router.get("/btc_to_fiat_exchange_rates")
+    @router.get("/global/decentralized_finance_defi")
     async def get_global_decentralized_finance_data():
         return await CoinGecko.get_global_decentralized_finance_data()
 
@@ -218,6 +221,6 @@ class CryptoController:
     # ------{ Companies }------- #
 
     # Get public companies bitcoin or ethereum holdings (Ordered by total holdings descending)
-    @router.get("/btc_to_fiat_exchange_rates")
-    async def get_global_decentralized_finance_data():
-        return await CoinGecko.get_global_decentralized_finance_data()
+    @router.get("/public_company_treasuries")
+    async def public_company_treasuries():
+        return await CoinGecko.public_company_treasuries()
