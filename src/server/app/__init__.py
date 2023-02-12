@@ -1,7 +1,10 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from .services.user.routes import router as UserRouter
+from .services.data_fetcher_service.coin_gecko.routes import router as CGRouter
+
 from .config import initiate_database
+
 
 
 
@@ -32,4 +35,6 @@ async def read_root():
 
 
 app.include_router(UserRouter, tags=["User"], prefix="/user")
+app.include_router(CGRouter, tags=["Coin Gecko"], prefix="/cg")
+
 

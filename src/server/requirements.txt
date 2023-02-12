@@ -24,6 +24,7 @@ numpy==1.24.2
 packaging==23.0
 passlib==1.7.4
 pluggy==1.0.0
+pycoingecko==3.1.0
 pydantic==1.10.4
 PyJWT==2.6.0
 pymongo==4.3.3
