@@ -30,20 +30,12 @@ export default function TopBar(props : TopBarProps) {
                         <span className='top-bar-def'>Exchanges:</span>
                         <span className='top-bar-value'>{props?.exchangeIDs?.length}</span>
                     </div>
-                    {/* <div className='top-bar-item'>
-                        <span className='top-bar-def'>Market Cap:</span>
-                        <span className='top-bar-value'>$1,066,381,174,123</span>
-                    </div> */}
                     <div className='top-bar-item'>
                         <span className='top-bar-def'>BTC Dominance:</span>
                         <span className='top-bar-value'>{props?.globalData?.market_cap_percentage?.btc && displayPercent(props?.globalData?.market_cap_percentage?.btc)}</span>
                     </div>
                 </div>
                 <div className='top-bar-right'>
-                    {/* <SelectCreator 
-                        data={props?.vsCurrencies}
-                        onSelect={props?.onVsCurrencySelect}
-                    /> */}
                     <div className='header-right flex'>
                         <div className='mr-2 header-nav'>
                             <a href="https://github.com/RobertJephthaHogan" target="_blank">

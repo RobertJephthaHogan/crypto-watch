@@ -21,35 +21,6 @@ export default function Cryptocurrencies(props : CryptoProps) {
     const [referenceState, setReferenceState] = useState<any>({})
 
 
-    // useEffect(() => {
-
-    //     let ws : any = new WebSocket('wss://crypto.financialmodelingprep.com')
-
-    //     ws.onopen = (event : any) => {
-    //         console.log('on open event', event)
-    //         console.log('process.env.REACT_APP_FMP_KEY', process.env.REACT_APP_FMP_KEY)
-    //         ws.send(JSON.stringify({ "event": "login", "data": { "apiKey": process.env.REACT_APP_FMP_KEY } }));
-            
-    //     };
-
-    //     ws.onmessage = (event: any) => {
-    //         let message = JSON.parse(event.data)
-    //         console.log('message', message)
-    //         if (message.message == 'Authenticated') {
-    //             ws.send(JSON.stringify({ "event": "subscribe", "data": { "ticker": "btcusd" } }))
-    //             ws.send(JSON.stringify({ "event": "subscribe", "data": { "ticker": "ethusd" } }))
-    //             ws.send(JSON.stringify({ "event": "subscribe", "data": { "ticker": "adausd" } }))
-    //             ws.send(JSON.stringify({ "event": "subscribe", "data": { "ticker": "solusd" } }))
-    //         }
-    //         setLastMessage(message)
-    //     }    
-        
-
-    //     return function cleanup() {
-    //         ws.close()
-    //     }
-
-    // }, [])
 
     useEffect(() => {
 
@@ -57,24 +28,19 @@ export default function Cryptocurrencies(props : CryptoProps) {
             let ws : any = new WebSocket('wss://crypto.financialmodelingprep.com')
 
             ws.onopen = (event : any) => {
-                console.log('on open event', event)
-                console.log('process.env.REACT_APP_FMP_KEY', process.env.REACT_APP_FMP_KEY)
                 ws.send(JSON.stringify({ "event": "login", "data": { "apiKey": process.env.REACT_APP_FMP_KEY } }));
                 
             };
     
             ws.onmessage = (event: any) => {
                 let message = JSON.parse(event.data)
-                console.log('message', message)
                 if (message.message == 'Authenticated') {
-                    console.log('MARKET DATA', marketData)
                     marketData.slice(0,25).forEach((element : any) => { // subscribe to the price feed for the first 25 tokens on current page (api subscription limit)
                         ws.send(JSON.stringify({ "event": "subscribe", "data": { "ticker": `${element?.symbol}usd` } }))
                     });
                 }
                 setLastMessage(message)
             }    
-            
     
             return function cleanup() {
                 ws.close()
@@ -91,7 +57,6 @@ export default function Cryptocurrencies(props : CryptoProps) {
         if (workingState.sym == lastMessage?.lp){
             //console.log('nothing changed')
         } else if (workingState.sym > lastMessage?.lp) { // if the new price is greater than the old price
-            console.log('greater than')
             if (ele) {
                 ele.innerText = formatAsCurrency(lastMessage?.lp)
                 ele.style.color = '#3CF045'
@@ -99,7 +64,6 @@ export default function Cryptocurrencies(props : CryptoProps) {
                 setReferenceState(workingState)
             }
         } else if (workingState.sym < lastMessage?.lp) { // if the new price is less than the old price
-            console.log('less than')
             if (ele) {
                 ele.innerText = formatAsCurrency(lastMessage?.lp)
                 ele.style.color = '#F05B3C'
@@ -155,24 +119,26 @@ export default function Cryptocurrencies(props : CryptoProps) {
                 }
                 
                 <div className='pagination-bar'>
-                    <div className='pagination-back'>
-                        <button
-                            onClick={() => decrementCoinPage()}
-                        >
-                            <LeftOutlined/>
-                        </button>
-                    </div>
-                    <div className='pagination-current'>
-                        <div className='bordered flex jc-c' style={{width:'50px', display: 'flex', justifyContent:'center'}}>
-                            {coinsPage}
+                    <div className='page-nav'>
+                        <div className='pagination-back mr-1'>
+                            <button
+                                onClick={() => decrementCoinPage()}
+                            >
+                                <LeftOutlined/>
+                            </button>
                         </div>
-                    </div>
-                    <div className='pagination-next'>
-                        <button
-                            onClick={() => incrementCoinPage()}
-                        >
-                            <RightOutlined/>
-                        </button>
+                        <div className='pagination-current'>
+                            <div className='bordered flex jc-c' style={{width:'50px', display: 'flex', justifyContent:'center'}}>
+                                {coinsPage}
+                            </div>
+                        </div>
+                        <div className='pagination-next ml-1'>
+                            <button
+                                onClick={() => incrementCoinPage()}
+                            >
+                                <RightOutlined/>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
