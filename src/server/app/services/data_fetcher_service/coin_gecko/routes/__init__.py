@@ -43,9 +43,9 @@ class CryptoController:
 
 
     # List all supported coins price, market cap, volume, and market related data
-    @router.get("/all_coin_market_data/{vs_currency}")
-    async def get_entity_filing_history(vs_currency):
-        return await CoinGecko(vs_currency = vs_currency).get_coins_markets()
+    @router.get("/all_coin_market_data/{page}")
+    async def get_entity_filing_history(page):
+        return await CoinGecko(vs_currency = 'USD', page = page).get_coins_markets()
 
 
     # Get current data (name, price, market, ... including exchange tickers) for a coin

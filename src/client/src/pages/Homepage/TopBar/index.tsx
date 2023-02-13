@@ -1,5 +1,6 @@
 import React from 'react'
 import { SelectCreator } from '../../../components/inputs/SelectCreator'
+import { displayPercent } from '../../../helpers'
 import './styles.css'
 
 
@@ -34,7 +35,7 @@ export default function TopBar(props : TopBarProps) {
                     </div> */}
                     <div className='top-bar-item'>
                         <span className='top-bar-def'>BTC Dominance:</span>
-                        <span className='top-bar-value'>{props?.globalData?.market_cap_percentage?.btc}</span>
+                        <span className='top-bar-value'>{displayPercent(props?.globalData?.market_cap_percentage?.btc)}</span>
                     </div>
                 </div>
                 <div className='top-bar-right'>

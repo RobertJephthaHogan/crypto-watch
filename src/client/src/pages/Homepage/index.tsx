@@ -10,7 +10,6 @@ import TopBar from './TopBar'
 
 export default function Homepage() {
 
-    const [marketData, setMarketData] = useState<any>()
     const [coinsList, setCoinsList] = useState<any>()
     const [exchangesList, setExchangesList] = useState<any>()
     const [exchangeIDs, setExchangeIDs] = useState<any>()
@@ -20,13 +19,6 @@ export default function Homepage() {
 
 
     useEffect(() => {
-
-        cryptoService.getAllCoinMarketData().then((resp:any) => {
-            console.log('resp', resp)
-            setMarketData(resp.data)
-        }).catch((err:any) => {
-            console.error('Error getting Coin Data', err)
-        })
 
         cryptoService.getCoinsList().then((resp:any) => {
             console.log('resp', resp)
@@ -89,8 +81,11 @@ export default function Homepage() {
             <SelectBar
                 onMenuSelect={onMenuSelect}
             />
-            <RenderSwitch componentType={componentView}/>
-            Homepage
+            <RenderSwitch 
+                componentType={componentView}
+                exchangeData={exchangesList}
+            />
+            
         </div>
     )
 }
@@ -101,6 +96,7 @@ export default function Homepage() {
 
 interface RenderSwitchProps {
     componentType: string
+    exchangeData?: any
 }
 
 function RenderSwitch(props: RenderSwitchProps) {
@@ -108,7 +104,9 @@ function RenderSwitch(props: RenderSwitchProps) {
         case 'cryptocurrencies':
             return <Cryptocurrencies/>
         case 'exchanges':
-            return <Exchanges/>
+            return <Exchanges
+                exchangeData={props.exchangeData}
+            />
 
         default:
             return <Cryptocurrencies/>

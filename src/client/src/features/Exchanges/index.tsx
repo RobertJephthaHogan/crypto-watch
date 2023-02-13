@@ -2,7 +2,12 @@ import React from 'react'
 
 
 
-export default function Exchanges() {
+
+interface ExchangeProps {
+    exchangeData?: any
+}
+
+export default function Exchanges( props: ExchangeProps) {
 
     return (
         <div>

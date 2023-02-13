@@ -18,3 +18,11 @@
 .fill-r {
     flex-grow: 1 !important;
 }
+
+.fdc {
+    flex-direction: column;
+}
+
+.jc-c {
+    justify-content: center;
+}

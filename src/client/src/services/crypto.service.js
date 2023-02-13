@@ -22,10 +22,10 @@ export const cryptoService = {
 }
 
 
-function getAllCoinMarketData() {
+function getAllCoinMarketData(coinsPage) {
     return new Promise((resolve, reject) => {
         apiInstance
-            .get(`/cg/all_coin_market_data/USD`)
+            .get(`/cg/all_coin_market_data/${coinsPage}`)
             .then((response) => {
                 return resolve(response)
             })

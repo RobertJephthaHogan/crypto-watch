@@ -24,6 +24,7 @@ class CoinGecko:
         self.contract_addresses = kwargs.get("contract_addresses") if kwargs.get("contract_addresses") else None 
         self.window = kwargs.get("window") if kwargs.get("window") else None 
         self.exchange_id = kwargs.get("exchange_id") if kwargs.get("exchange_id") else None 
+        self.page = kwargs.get("page") if kwargs.get("page") else 1 
 
 
     # ------{ Simple }------- #
@@ -53,7 +54,7 @@ class CoinGecko:
 
     # List all supported coins price, market cap, volume, and market related data
     async def get_coins_markets(self):
-        return cg.get_coins_markets(vs_currency = self.vs_currency)
+        return cg.get_coins_markets(vs_currency = self.vs_currency, page = self.page)
 
 
     # Get current data (name, price, market, ... including exchange tickers) for a coin

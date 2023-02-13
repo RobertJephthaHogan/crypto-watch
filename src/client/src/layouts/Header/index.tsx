@@ -20,9 +20,6 @@ export default function Header() {
         <div className='header' id='header'>
             <div className='header-left'>
                 <div className='header-left-item'>
-                    
-                </div>
-                <div className='header-left-item ml-4'>
                     <span 
                         className='header-nav'
                         onClick={() => navigate('/')}
@@ -50,15 +47,7 @@ export default function Header() {
                         />
                     </a>
                 </div>
-                <div 
-                    className='header-nav'
-                    onClick={() => expandDropdown('user-dropdown')}
-                >
-                    <UserOutlined className='dropbtn'/>
-                    <div id='user-dropdown' className="dropdown-content">
-                        <a onClick={() => store.dispatch(userActions.logout())}>Log Out</a>
-                    </div>
-                </div>
+                
             </div>
         </div>
     )
