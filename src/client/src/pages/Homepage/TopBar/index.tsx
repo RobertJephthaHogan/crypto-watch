@@ -1,3 +1,4 @@
+import { GithubOutlined, LinkedinOutlined } from '@ant-design/icons'
 import React from 'react'
 import { SelectCreator } from '../../../components/inputs/SelectCreator'
 import { displayPercent } from '../../../helpers'
@@ -39,10 +40,30 @@ export default function TopBar(props : TopBarProps) {
                     </div>
                 </div>
                 <div className='top-bar-right'>
-                    <SelectCreator 
+                    {/* <SelectCreator 
                         data={props?.vsCurrencies}
                         onSelect={props?.onVsCurrencySelect}
-                    />
+                    /> */}
+                    <div className='header-right flex'>
+                        <div className='mr-2 header-nav'>
+                            <a href="https://github.com/RobertJephthaHogan" target="_blank">
+                                <GithubOutlined
+                                    style={{
+                                        color:'#000000'
+                                    }}
+                                />
+                            </a>
+                        </div>
+                        <div className='mr-2 header-nav'>
+                            <a href="https://www.linkedin.com/in/robert-hogan-378300191/" target="_blank">
+                                <LinkedinOutlined
+                                    style={{
+                                        color:'#000000'
+                                    }}
+                                />
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -70,7 +70,7 @@ export default function Homepage() {
 
     return (
         <div>
-            <Header/>
+            {/* <Header/> */}
             <TopBar
                 coinsList={coinsList}
                 exchangeIDs={exchangeIDs}

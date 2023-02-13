@@ -21,43 +21,74 @@ export default function Cryptocurrencies(props : CryptoProps) {
     const [referenceState, setReferenceState] = useState<any>({})
 
 
+    // useEffect(() => {
 
-    useEffect(() => {
+    //     let ws : any = new WebSocket('wss://crypto.financialmodelingprep.com')
 
-        let ws : any = new WebSocket('wss://crypto.financialmodelingprep.com')
-
-        ws.onopen = (event : any) => {
-            console.log('on open event', event)
-            console.log('process.env.REACT_APP_FMP_KEY', process.env.REACT_APP_FMP_KEY)
-            ws.send(JSON.stringify({ "event": "login", "data": { "apiKey": process.env.REACT_APP_FMP_KEY } }));
+    //     ws.onopen = (event : any) => {
+    //         console.log('on open event', event)
+    //         console.log('process.env.REACT_APP_FMP_KEY', process.env.REACT_APP_FMP_KEY)
+    //         ws.send(JSON.stringify({ "event": "login", "data": { "apiKey": process.env.REACT_APP_FMP_KEY } }));
             
-        };
+    //     };
 
-        ws.onmessage = (event: any) => {
-            let message = JSON.parse(event.data)
-            console.log('message', message)
-            if (message.message == 'Authenticated') {
-                ws.send(JSON.stringify({ "event": "subscribe", "data": { "ticker": "btcusd" } }))
-                ws.send(JSON.stringify({ "event": "subscribe", "data": { "ticker": "ethusd" } }))
-                ws.send(JSON.stringify({ "event": "subscribe", "data": { "ticker": "adausd" } }))
-                ws.send(JSON.stringify({ "event": "subscribe", "data": { "ticker": "solusd" } }))
-            }
-            setLastMessage(message)
-        }    
+    //     ws.onmessage = (event: any) => {
+    //         let message = JSON.parse(event.data)
+    //         console.log('message', message)
+    //         if (message.message == 'Authenticated') {
+    //             ws.send(JSON.stringify({ "event": "subscribe", "data": { "ticker": "btcusd" } }))
+    //             ws.send(JSON.stringify({ "event": "subscribe", "data": { "ticker": "ethusd" } }))
+    //             ws.send(JSON.stringify({ "event": "subscribe", "data": { "ticker": "adausd" } }))
+    //             ws.send(JSON.stringify({ "event": "subscribe", "data": { "ticker": "solusd" } }))
+    //         }
+    //         setLastMessage(message)
+    //     }    
         
 
-        return function cleanup() {
-            ws.close()
-        }
+    //     return function cleanup() {
+    //         ws.close()
+    //     }
 
-    }, [])
+    // }, [])
 
     useEffect(() => {
-        //console.log(lastMessage?.s?.slice(0,3))
+
+        if (marketData) {
+            let ws : any = new WebSocket('wss://crypto.financialmodelingprep.com')
+
+            ws.onopen = (event : any) => {
+                console.log('on open event', event)
+                console.log('process.env.REACT_APP_FMP_KEY', process.env.REACT_APP_FMP_KEY)
+                ws.send(JSON.stringify({ "event": "login", "data": { "apiKey": process.env.REACT_APP_FMP_KEY } }));
+                
+            };
+    
+            ws.onmessage = (event: any) => {
+                let message = JSON.parse(event.data)
+                console.log('message', message)
+                if (message.message == 'Authenticated') {
+                    console.log('MARKET DATA', marketData)
+                    marketData.slice(0,25).forEach((element : any) => { // subscribe to the price feed for the first 25 tokens on current page (api subscription limit)
+                        ws.send(JSON.stringify({ "event": "subscribe", "data": { "ticker": `${element?.symbol}usd` } }))
+                    });
+                }
+                setLastMessage(message)
+            }    
+            
+    
+            return function cleanup() {
+                ws.close()
+            }
+        }
+        
+
+    }, [marketData])
+
+    useEffect(() => {
         const sym = lastMessage?.s?.slice(0,3)
         const ele = document.getElementById(`${sym}-price`)
         const workingState = {...referenceState}
-        if (workingState.sym === lastMessage?.lp){
+        if (workingState.sym == lastMessage?.lp){
             //console.log('nothing changed')
         } else if (workingState.sym > lastMessage?.lp) { // if the new price is greater than the old price
             console.log('greater than')
@@ -81,9 +112,6 @@ export default function Cryptocurrencies(props : CryptoProps) {
         }
         
         
-        
-        //setReferenceState()
-        
     }, [lastMessage])
 
 
@@ -96,6 +124,7 @@ export default function Cryptocurrencies(props : CryptoProps) {
         })
     }, [coinsPage])
 
+
     const decrementCoinPage = () => {
         if (coinsPage > 1) {
             setCoinsPage(coinsPage - 1)
@@ -103,10 +132,12 @@ export default function Cryptocurrencies(props : CryptoProps) {
         setLoading(true)
     }
 
+
     const incrementCoinPage = () => {
         setCoinsPage(coinsPage + 1)
         setLoading(true)
     }
+
 
     return (
         <div className='cryptocurrencies'>
