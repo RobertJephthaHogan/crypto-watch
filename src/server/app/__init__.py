@@ -10,7 +10,11 @@ from .config import initiate_database
 
 app = FastAPI()
 
-origins = [ 'http://localhost:3000', 'http://localhost:3001' ]
+origins = [ 
+    'http://localhost:3000', 
+    'http://localhost:3001' ,
+    'http://cryptowatch.roberthogan.io' ,
+]
 
 app.add_middleware(
     CORSMiddleware,
