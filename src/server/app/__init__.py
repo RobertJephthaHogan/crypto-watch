@@ -10,7 +10,7 @@ from .config import initiate_database
 
 app = FastAPI()
 
-origins = [ 'http://localhost:3000' ]
+origins = [ 'http://localhost:3000', 'http://localhost:3001' ]
 
 app.add_middleware(
     CORSMiddleware,
