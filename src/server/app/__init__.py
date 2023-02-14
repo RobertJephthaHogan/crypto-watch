@@ -13,7 +13,8 @@ app = FastAPI()
 origins = [ 
     'http://localhost:3000', 
     'http://localhost:3001' ,
-    'http://cryptowatch.roberthogan.io' ,
+    'http://cryptowatch.roberthogan.io',
+    'cryptowatch.roberthogan.io',
 ]
 
 app.add_middleware(
