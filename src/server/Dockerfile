@@ -1,10 +1,10 @@
 FROM python:3.9-alpine
 
-WORKDIR /code
-COPY ./app /code/app
-COPY ./main.py /code
-COPY ./requirements.txt /code
-COPY .env /code
+WORKDIR /server
+COPY ./app /server/app
+COPY ./main.py /server
+COPY ./requirements.txt /server
+COPY .env /server
 
 
 

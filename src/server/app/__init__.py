@@ -36,7 +36,7 @@ async def startup_event():
 # Root Render
 @app.get("/", tags=["Root"])
 async def read_root():
-    return {"message": "Hello Control Panel."}
+    return {"message": "Hello Crypto Watch."}
 
 
 app.include_router(UserRouter, tags=["User"], prefix="/user")
