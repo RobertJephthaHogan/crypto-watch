@@ -13,6 +13,7 @@ app = FastAPI()
 origins = [ 
     'http://localhost:3000', 
     'http://localhost:3001' ,
+    'http://localhost:3003' ,
     'http://cryptowatch.roberthogan.io',
     'cryptowatch.roberthogan.io',
 ]

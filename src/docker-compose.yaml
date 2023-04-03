@@ -4,12 +4,12 @@ services:
     build:
       context: ./server
     ports:
-      - "8000:8000"
+      - "8003:8003"
     container_name: crypto_watch_server
 
   crypto_watch_client:
     build:
       context: ./client
     ports:
-      - "3000:3000"
+      - "3003:3003"
     container_name: crypto_watch_client
